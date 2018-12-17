@@ -64,7 +64,7 @@ python3 train.py -data data/gcn_exp -save_model data/tmp_ -rnn_size 256 -word_ve
 ```
 
 To train with a GCN encoder the following options must be set:
-<code>
+<code><pre>
 -encoder_type  
 -gcn_num_inputs Input size for the gcn layer
 -gcn_num_units Output size for the gcn layer
@@ -75,7 +75,7 @@ To train with a GCN encoder the following options must be set:
 -gcn_residual Decide wich skip connection to use between GCN layers 'residual' or 'dense' default it is set as no resiudal connections
 -gcn_use_gates  Switch to activate edgewise gates
 -gcn_use_glus Node gates
-</code>
+</code></pre>
 
 
 Add the following arguments to use pre-trained embeddings:
