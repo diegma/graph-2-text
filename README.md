@@ -4,9 +4,9 @@ If you use this code, please cite us.
 
 
 ### Dependencies
- - [Python 3]() 
- - [Pytorch 0.3.1]() 
- - [Networkx]() 
+ - Python 3
+ - [Pytorch 0.3.1](https://pytorch.org/get-started/locally/)
+ - [Networkx](https://networkx.github.io) 
 
 
 ### Download and prepare data
@@ -57,10 +57,14 @@ python3 tools/embeddings_to_torch.py \
 ```
 
 ### Train
-after you preprocessed the files you can run the training procedure
+After you preprocessed the files you can run the training procedure:
+```
+
 python3 train.py -data data/gcn_exp -save_model data/tmp_ -rnn_size 256 -word_vec_size 256 -layers 1 -epochs 10 -optim adam -learning_rate 0.001 -encoder_type gcn -gcn_num_inputs 256 -gcn_num_units 256 -gcn_in_arcs -gcn_out_arcs -gcn_num_layers 1 -gcn_num_labels 5
+```
 
 To train with a GCN encoder the following options must be set:
+<code>
 -encoder_type  
 -gcn_num_inputs Input size for the gcn layer
 -gcn_num_units Output size for the gcn layer
@@ -71,6 +75,7 @@ To train with a GCN encoder the following options must be set:
 -gcn_residual Decide wich skip connection to use between GCN layers 'residual' or 'dense' default it is set as no resiudal connections
 -gcn_use_gates  Switch to activate edgewise gates
 -gcn_use_glus Node gates
+</code>
 
 
 Add the following arguments to use pre-trained embeddings:
@@ -81,9 +86,9 @@ Add the following arguments to use pre-trained embeddings:
 
 ### Generate ###
 Generating with obtained model:
-
+```
 python3 translate.py -model data/tmp__acc_4.72_ppl_390.39_e1.pt -data_type gcn -src data/webnlg/dev-webnlg-all-delex-src-nodes.txt -tgt data/webnlg/dev-webnlg-all-delex-tgt.txt -src_label data/webnlg/dev-webnlg-all-delex-src-labels.txt -src_node1 data/webnlg/dev-webnlg-all-delex-src-node1.txt -src_node2 data/webnlg/dev-webnlg-all-delex-src-node2.txt -output data/webnlg/delexicalized_predictions_dev.txt -replace_unk -verbose
-
+```
 
 ### Postprocessing and Evaluation ###
 For post processing follow step 2 and 3 of WebNLG scripts.
@@ -110,46 +115,47 @@ python3 ../../webnlg_eval_scripts/webnlg_gcnonmt_input.py -i ./ -e
 To make source and target tokens lowercased, add ```-l``` argument. This applies only to **notdelex** version.
 
 2. relexicalise output of GCN
+```
 cd data/webnlg/
 python3 ../../webnlg_eval_scripts/webnlg_gcnonmt_relexicalise.py -i ./ -f delexicalized_predictions_dev.txt
-
+```
 To relexicalise specific partition only, e.g. test add the following argument:
--p test
+```-p test```
 
 Note: The scripts now read the file 'delex_dict.json' from the same directory of main file (e.g. 'webnlg_gcnonmt_input.py')
 Note: The sorting of the list of files is added but commented out
-
+```
 python3 ../../webnlg_eval_scripts/webnlg_gcnonmt_relexicalise.py -i ./ -f delexicalized_predictions_test.txt -c seen
-
+```
 
 
 3. metrics (generate files for METEOR and TER)
-
+```
 python3 webnlg_eval_scripts/metrics.py --td data/webnlg/ --pred data/webnlg/rexicalized_predictions.txt --p dev
-
+```
 
 ### SR11 scripts ###
 
-generate/format input dataset for gcn encoder:
-
+Generate/format input dataset for gcn encoder:
+```
 cd srtask/
 python3 sr11_onmtgcn_input.py -i ../data/srtask11/SR_release1.0/ -t deep
 python3 sr11_onmtgcn_input.py -i ../data/srtask11/SR_release1.0/ -t deep -p test
-
+```
 reanonymise:
-
+```
 python3 sr_onmtgcn_deanonymise.py -i ../data/srtask11/SR_release1.0/ -f ../data/srtask11/SR_release1.0/devel-sr11-deep-anonym-tgt.txt -p devel -t deep
-
+```
 generate/format input dataset for linearised input and sequence encoder:
-
+```
 cd srtask/
 python3 sr11_linear_input.py -i ../data/srtask11/SR_release1.0/ -t deep
 python3 sr11_linear_input.py -i ../data/srtask11/SR_release1.0/ -t deep -p test
-
+```
 
 generate TER input files
-
+```
 python3 srtask/srpredictions4ter.py --pred PREDSFILE --gold data/srtask11/SR_release1.0/test/SRTESTB_sents.txt
-
-PREDSFILE is filename with relative path
+```
+```PREDSFILE``` is filename with relative path
 
