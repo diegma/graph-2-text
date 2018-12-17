@@ -1,7 +1,6 @@
 This is the code used in the paper [Deep Graph Convolutional Encoders for Structured Data to Text Generation](http://aclweb.org/anthology/W18-6501) by Diego Marcheggiani and Laura Perez-Beltrachini.
 
-If you use this code, please cite us.
-
+We extended the [OpenNMT](https://github.com/OpenNMT/OpenNMT-py) library with a Graph Convolutional Network encoder.
 
 ### Dependencies
  - Python 3
