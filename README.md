@@ -130,7 +130,7 @@ python3 ../../webnlg_eval_scripts/webnlg_gcnonmt_relexicalise.py -i ./ -f delexi
 
 3. metrics (generate files for METEOR and TER)
 ```
-python3 webnlg_eval_scripts/metrics.py --td data/webnlg/ --pred data/webnlg/rexicalized_predictions.txt --p dev
+python3 webnlg_eval_scripts/metrics.py --td data/webnlg/ --pred data/webnlg/relexicalised_predictions.txt --p dev
 ```
 
 ### SR11 scripts ###
