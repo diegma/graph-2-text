@@ -2,6 +2,8 @@ This is the code used in the paper [Deep Graph Convolutional Encoders for Struct
 
 We extended the [OpenNMT](https://github.com/OpenNMT/OpenNMT-py) library with a Graph Convolutional Network encoder.
 
+
+
 ### Dependencies
  - Python 3
  - [Pytorch 0.3.1](https://pytorch.org/get-started/locally/)
@@ -15,9 +17,11 @@ Download webnlg data from [here](https://gitlab.com/shimorina/webnlg-dataset/tre
 in data/webnlg/ keeping the three folders for the different partitions.
 
 There is a preparation step for extracting the node and the edges from the graphs.
-Instruction for this are in the WebNLG scripts point 1.
+Instruction for this are in the *WebNLG Scripts* section point 1, at the bottom of the readme.
 
 The preprocessing training and generation steps are the same for the Surface Realization Task (SR11) data.
+The SR11 data can be downloaded from [here](https://sites.google.com/site/genchalrepository/surface-realisation/sr11).
+Data preparation scripts are on the *SR11 Scripts* section.
 
 ### Preprocess
 
@@ -92,6 +96,7 @@ python3 translate.py -model data/tmp__acc_4.72_ppl_390.39_e1.pt -data_type gcn -
 ### Postprocessing and Evaluation ###
 For post processing follow step 2 and 3 of WebNLG scripts.
 For evaluation follow the instruction of the WebNLG challenge [baseline](http://webnlg.loria.fr/pages/baseline.html) or run webnlg_eval_scripts/calculate_bleu_dev.sh .
+For the SR11 task, scripts for the 3 metrics are the same as used for WebNLG [see](https://www.aclweb.org/anthology/W11-2832).
 
 ### WebNLG scripts ###
 
@@ -123,6 +128,7 @@ To relexicalise specific partition only, e.g. test add the following argument:
 
 Note: The scripts now read the file 'delex_dict.json' from the same directory of main file (e.g. 'webnlg_gcnonmt_input.py')
 Note: The sorting of the list of files is added but commented out
+Note: the relexicalisation script should be run both for 'all-delex' and 'all-notdelex' too, as it does some other formattings needed before running the evaluation metrics.
 ```
 python3 ../../webnlg_eval_scripts/webnlg_gcnonmt_relexicalise.py -i ./ -f delexicalized_predictions_test.txt -c seen
 ```
@@ -130,7 +136,7 @@ python3 ../../webnlg_eval_scripts/webnlg_gcnonmt_relexicalise.py -i ./ -f delexi
 
 3. metrics (generate files for METEOR and TER)
 ```
-python3 webnlg_eval_scripts/metrics.py --td data/webnlg/ --pred data/webnlg/rexicalized_predictions.txt --p dev
+python3 webnlg_eval_scripts/metrics.py --td data/webnlg/ --pred data/webnlg/relexicalised_predictions.txt --p dev
 ```
 
 ### SR11 scripts ###
@@ -158,3 +164,18 @@ python3 srtask/srpredictions4ter.py --pred PREDSFILE --gold data/srtask11/SR_rel
 ```
 ```PREDSFILE``` is filename with relative path
 
+
+### Citation
+```
+@inproceedings{marcheggiani-perez-beltrachini-2018-deep,
+    title = "Deep Graph Convolutional Encoders for Structured Data to Text Generation",
+    author = "Marcheggiani, Diego  and Perez-Beltrachini, Laura",
+    booktitle = "Proceedings of the 11th International Conference on Natural Language Generation",
+    month = nov,
+    year = "2018",
+    address = "Tilburg University, The Netherlands",
+    publisher = "Association for Computational Linguistics",
+    url = "https://www.aclweb.org/anthology/W18-6501",
+    pages = "1--9"
+}
+```
