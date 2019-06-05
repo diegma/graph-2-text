@@ -25,7 +25,7 @@ Data preparation scripts are on the *SR11 Scripts* section.
 
 ### Preprocess
 
-Using the files obtained in the preparation step, we first generate of data and dictionary for OpenNmt.
+Using the files obtained in the preparation step, we first generate data and dictionary for OpenNmt.
 
 
 To preprocess the raw files run:
@@ -46,7 +46,7 @@ python3 preprocess.py -train_src data/webnlg/train-webnlg-all-notdelex-src-nodes
 
 The argument ```-dynamic_dict``` is needed to train models using copy mechanism e.g., the model GCN_CE in the paper.
 
-Preprocessing step for the SR11 task are the same as WebNLG.
+Preprocessing step for the SR11 task is the same as WebNLG.
 
 #### Embeddings
 
