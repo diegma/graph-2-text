@@ -17,15 +17,15 @@ Download webnlg data from [here](https://gitlab.com/shimorina/webnlg-dataset/tre
 in data/webnlg/ keeping the three folders for the different partitions.
 
 There is a preparation step for extracting the node and the edges from the graphs.
-Instruction for this are in the *WebNLG Scripts* section point 1, at the bottom of the readme.
+Instruction for this are in the *WebNLG Scripts* section point 1 below.
 
 The preprocessing training and generation steps are the same for the Surface Realization Task (SR11) data.
 The SR11 data can be downloaded from [here](https://sites.google.com/site/genchalrepository/surface-realisation/sr11).
-Data preparation scripts are on the *SR11 Scripts* section.
+Data preparation scripts are on the *SR11 Scripts* section below.
 
 ### Preprocess
 
-Using the files obtained in the preparation step, we first generate of data and dictionary for OpenNmt.
+Using the files obtained in the preparation step, we first generate data and dictionary for OpenNmt.
 
 
 To preprocess the raw files run:
@@ -46,7 +46,7 @@ python3 preprocess.py -train_src data/webnlg/train-webnlg-all-notdelex-src-nodes
 
 The argument ```-dynamic_dict``` is needed to train models using copy mechanism e.g., the model GCN_CE in the paper.
 
-Preprocessing step for the SR11 task are the same as WebNLG.
+Preprocessing step for the SR11 task is the same as WebNLG.
 
 #### Embeddings
 
@@ -75,7 +75,7 @@ To train with a GCN encoder the following options must be set:
 -gcn_num_layers Number of gcn layers
 -gcn_in_arcs Use incoming edges of the gcn layer
 -gcn_out_arcs Use outgoing edges of the gcn layer
--gcn_residual Decide wich skip connection to use between GCN layers 'residual' or 'dense' default it is set as no resiudal connections
+-gcn_residual Decide wich skip connection to use between GCN layers 'residual' or 'dense' default it is set as no residual connections
 -gcn_use_gates  Switch to activate edgewise gates
 -gcn_use_glus Node gates
 </code></pre>
@@ -87,6 +87,12 @@ Add the following arguments to use pre-trained embeddings:
         -pre_word_vecs_dec data/gcn_exp.embeddings.dec.pt \
 ```
 
+
+Note: The reported results for both model variants were obtained by *averaging 3 runs* with the following seeds: 42, 43, 44.
+Note: The GCN_EC variant used 6 gcn layers and dense connections, and HIDDEN=EMBED=300
+Note: reported examples in table 3 and table 5 of the paper are from development set
+Note: add gold texts in table 5 for webnlg
+
 ### Generate ###
 Generating with obtained model:
 ```
@@ -96,7 +102,8 @@ python3 translate.py -model data/tmp__acc_4.72_ppl_390.39_e1.pt -data_type gcn -
 ### Postprocessing and Evaluation ###
 For post processing follow step 2 and 3 of WebNLG scripts.
 For evaluation follow the instruction of the WebNLG challenge [baseline](http://webnlg.loria.fr/pages/baseline.html) or run webnlg_eval_scripts/calculate_bleu_dev.sh .
-For the SR11 task, scripts for the 3 metrics are the same as used for WebNLG [see](https://www.aclweb.org/anthology/W11-2832).
+
+For the [SR11 task](https://www.aclweb.org/anthology/W11-2832), scripts for the 3 metrics are the same as used for WebNLG.
 
 ### WebNLG scripts ###
 
@@ -126,9 +133,9 @@ python3 ../../webnlg_eval_scripts/webnlg_gcnonmt_relexicalise.py -i ./ -f delexi
 To relexicalise specific partition only, e.g. test add the following argument:
 ```-p test```
 
-Note: The scripts now read the file 'delex_dict.json' from the same directory of main file (e.g. 'webnlg_gcnonmt_input.py')
-Note: The sorting of the list of files is added but commented out
-Note: the relexicalisation script should be run both for 'all-delex' and 'all-notdelex' too, as it does some other formattings needed before running the evaluation metrics.
+Note: The scripts now read the file 'delex_dict.json' from the same directory of main file (e.g. 'webnlg_gcnonmt_input.py')  
+Note: The sorting of the list of files is added but commented out  
+Note: the relexicalisation script should be run both for 'all-delex' and 'all-notdelex' too, as it does some other formattings needed before running the evaluation metrics  
 ```
 python3 ../../webnlg_eval_scripts/webnlg_gcnonmt_relexicalise.py -i ./ -f delexicalized_predictions_test.txt -c seen
 ```
@@ -163,6 +170,16 @@ generate TER input files
 python3 srtask/srpredictions4ter.py --pred PREDSFILE --gold data/srtask11/SR_release1.0/test/SRTESTB_sents.txt
 ```
 ```PREDSFILE``` is filename with relative path
+
+
+### Models' Outputs
+
+Note: The reported results for both model variants (GCN and GCN_EC) were obtained by *averaging 3 runs* with the following seeds: 42, 43, 44.  
+Note: The GCN_EC variant used 6 GCN layers and dense connections and HIDDEN=EMBED=300  
+
+
+The outputs by the GCN_EC models (3 different seeds) can be downloaded  from [here](https://drive.google.com/open?id=14jqynCbA_u4Toiqx1A9X_UCA6agQT_YM).
+
 
 
 ### Citation
