@@ -178,9 +178,9 @@ Note: The reported results for both model variants (GCN and GCN_EC) were obtaine
 Note: The GCN_EC variant used 6 GCN layers and dense connections and HIDDEN=EMBED=300  
 
 
-The outputs by the GCN_EC models (3 different seeds) can be downloaded  from [here](https://drive.google.com/open?id=14jqynCbA_u4Toiqx1A9X_UCA6agQT_YM).
+The outputs by the GCN_EC models (3 different seeds) can be downloaded  from [here](https://drive.google.com/file/d/14jqynCbA_u4Toiqx1A9X_UCA6agQT_YM/view?usp=sharing).
 
-SR11 outputs can be downloaded from [here](https://drive.google.com/open?id=187WoKB9Btta7NJ7-BlBFpB_eVgqNTJOp)
+SR11 outputs can be downloaded from [here](https://drive.google.com/file/d/187WoKB9Btta7NJ7-BlBFpB_eVgqNTJOp/view?usp=sharing)
 
 ### Citation
 ```
